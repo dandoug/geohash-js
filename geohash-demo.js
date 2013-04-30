@@ -14,7 +14,7 @@ GScript('http://maps.google.com/maps?file=api&amp;v=2&amp;key=' + key);
 GScript('./geohash.js');
 GScript('./labeledmarker.js');
 
-var ZOOMLEVELS = { 3: 7, 4 : 10, 5 : 12, 6 : 15, 7 : 17, 8 : 17 };
+var ZOOMLEVELS = { 3: 7, 4 : 10, 5 : 12, 6 : 15, 7 : 17, 8 : 18, 9 : 20 };
 	
 function getWindowDimensions () {
 	var myWidth = 0, myHeight = 0;
@@ -118,6 +118,16 @@ function plotGeoHash (gLatLng) {
 	
 	var geohash = encodeGeoHash(gLatLng.lat(), gLatLng.lng());
 	document.getElementById("geoHash").value = geohash;
+	innerPlotGeohash(geohash);
+}
+
+function plotByHash () {
+	var geohash = document.getElementById("geoHash").value;
+	innerPlotGeohash(geohash);
+}
+
+
+function innerPlotGeohash(geohash) {
 	var resolution = document.getElementById("hashResolution").value;
 	geohash = geohash.substr(0,resolution);
 	var geoHashBox = new GeoHashBox(geohash);
@@ -152,7 +162,7 @@ function plotGeoHash (gLatLng) {
 
 	// var myIcon = new GIcon({image : './anchor.png', shadow : './shadow.png'});
 	// var myMarker = new GMarker(gLatLng);
-	// map.addOverlay(myMarker);
+	// map.addOverlay(myMarker);	
 }
 
 function setText(s,t) {
