@@ -118,16 +118,17 @@ function plotGeoHash (gLatLng) {
 	
 	var geohash = encodeGeoHash(gLatLng.lat(), gLatLng.lng());
 	document.getElementById("geoHash").value = geohash;
-	innerPlotGeohash(geohash);
+	innerPlotGeohash(geohash, gLatLng.lat(), gLatLng.lng());
 }
 
 function plotByHash () {
 	var geohash = document.getElementById("geoHash").value;
-	innerPlotGeohash(geohash);
+	var latlng = decodeGeoHash(geohash);
+	innerPlotGeohash(geohash, latlng["latitude"][2], latlng["longitude"][2]);
 }
 
 
-function innerPlotGeohash(geohash) {
+function innerPlotGeohash(geohash, latitude, longitude) {
 	var resolution = document.getElementById("hashResolution").value;
 	geohash = geohash.substr(0,resolution);
 	var geoHashBox = new GeoHashBox(geohash);
@@ -156,8 +157,8 @@ function innerPlotGeohash(geohash) {
 		ydistance = parseInt(ydistance+0.5);
 		units = "m";
 	}
-	var lat = parseInt(gLatLng.lat()*1000)/1000;
-	var lng = parseInt(gLatLng.lng()*1000)/1000;
+	var lat = parseInt(latitude*1000)/1000;
+	var lng = parseInt(longitude*1000)/1000;
 	searchInfo.innerHTML = lat + ", " + lng + " [w:" + xdistance + units + ", h:" + ydistance + units + "] (" + searcharea + "km2)";
 
 	// var myIcon = new GIcon({image : './anchor.png', shadow : './shadow.png'});
