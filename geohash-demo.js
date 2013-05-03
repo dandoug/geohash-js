@@ -157,13 +157,13 @@ function innerPlotGeohash(geohash, latitude, longitude) {
 		ydistance = parseInt(ydistance+0.5);
 		units = "m";
 	}
-	var lat = parseInt(latitude*1000)/1000;
-	var lng = parseInt(longitude*1000)/1000;
+	var lat = parseInt(latitude*100000)/100000;
+	var lng = parseInt(longitude*100000)/100000;
 	searchInfo.innerHTML = lat + ", " + lng + " [w:" + xdistance + units + ", h:" + ydistance + units + "] (" + searcharea + "km2)";
 
 	// var myIcon = new GIcon({image : './anchor.png', shadow : './shadow.png'});
-	// var myMarker = new GMarker(gLatLng);
-	// map.addOverlay(myMarker);	
+	var myMarker = new LabeledMarker(new GLatLng(latitude, longitude), this.options );
+	map.addOverlay(myMarker);	
 }
 
 function setText(s,t) {
