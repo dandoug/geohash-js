@@ -99,7 +99,7 @@ LabeledMarker.prototype.initialize = function(map) {
       GEvent.addDomListener(this.div_, name, newEventPassthru(this, name));
     }
   }
-}
+};
 
 /**
  * Move the text div based on current projection and zoom level, call the redraw()
@@ -119,7 +119,7 @@ LabeledMarker.prototype.redraw = function(force) {
   this.div_.style.left = (p.x + this.labelOffset_.width) + "px";
   this.div_.style.top = (p.y + this.labelOffset_.height) + "px";
   this.div_.style.zIndex = z; // in front of the marker
-}
+};
 
 /**
  * Remove the text div from the map pane, destroy event passthrus, and calls the
@@ -130,7 +130,7 @@ LabeledMarker.prototype.redraw = function(force) {
   this.div_.parentNode.removeChild(this.div_);
   this.div_ = null;
   GMarker.prototype.remove.apply(this, arguments);
-}
+};
 
 /**
  * Return a copy of this overlay, for the parent Map to duplicate itself in full. This
@@ -139,4 +139,4 @@ LabeledMarker.prototype.redraw = function(force) {
  */
 LabeledMarker.prototype.copy = function() {
   return new LabeledMarker(this.latlng_, this.opt_opts_);
-}
+};

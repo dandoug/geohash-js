@@ -58,11 +58,9 @@ function sizeMap() {
 
 GeoHashBox.prototype.centerMap = function () {
 	map.setCenter(this.centerPoint, ZOOMLEVELS[this.geohash.length]);
-}
+};
 	
 GeoHashBox.prototype.showNeighbors = function () {
-	var geohashPrefix = this.geohash.substr(0,this.geohash.length-1);
-	 
 	this.neighbors.top = new GeoHashBox(calculateAdjacent(this.geohash, 'top'));
 	this.neighbors.bottom = new GeoHashBox(calculateAdjacent(this.geohash, 'bottom'));
 	this.neighbors.right = new GeoHashBox(calculateAdjacent(this.geohash, 'right'));
@@ -71,7 +69,7 @@ GeoHashBox.prototype.showNeighbors = function () {
 	this.neighbors.topright = new GeoHashBox(calculateAdjacent(this.neighbors.right.geohash, 'top'));
 	this.neighbors.bottomright = new GeoHashBox(calculateAdjacent(this.neighbors.right.geohash, 'bottom'));
 	this.neighbors.bottomleft = new GeoHashBox(calculateAdjacent(this.neighbors.left.geohash, 'bottom'));
-}
+};
 
 GeoHashBox.prototype.plot = function () {
 	var polyline = new GPolygon([
@@ -84,7 +82,7 @@ GeoHashBox.prototype.plot = function () {
   map.addOverlay(polyline);
 	var marker = new LabeledMarker(new GLatLng(this.box.latitude[2],this.box.longitude[2]), this.options );
 	map.addOverlay(marker);
-}
+};
 
 function GeoHashBox (geohash) {
 	this.geohash = geohash;
@@ -184,6 +182,6 @@ window.onload = function () {
 	  GEvent.addDomListener(document.getElementById('map'), "DOMMouseScroll", wheelZoom);
 	  GEvent.addDomListener(document.getElementById('map'), "mousewheel", wheelZoom);
 	  } else {
-	    alert("Sorry, your browser is lame!")
+	    alert("Sorry, your browser is lame!");
 	  }
-}
+};

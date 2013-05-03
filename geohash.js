@@ -49,10 +49,10 @@ function decodeGeoHash(geohash) {
 	lon[0] = -180.0; lon[1] = 180.0;
 	lat_err = 90.0;  lon_err = 180.0;
 	
-	for (i=0; i<geohash.length; i++) {
+	for (var i=0; i<geohash.length; i++) {
 		c = geohash[i];
 		cd = BASE32.indexOf(c);
-		for (j=0; j<5; j++) {
+		for (var j=0; j<5; j++) {
 			mask = BITS[j];
 			if (is_even) {
 				lon_err /= 2;
@@ -72,7 +72,6 @@ function decodeGeoHash(geohash) {
 
 function encodeGeoHash(latitude, longitude) {
 	var is_even=1;
-	var i=0;
 	var lat = []; var lon = [];
 	var bit=0;
 	var ch=0;
