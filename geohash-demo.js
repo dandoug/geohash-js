@@ -88,10 +88,10 @@ function GeoHashBox (geohash) {
 	this.geohash = geohash;
 	this.box = decodeGeoHash(geohash);
 	this.corners = {};
-	this.corners.topleft = new GLatLng(this.box.latitude[0], this.box.longitude[0]);
-	this.corners.topright = new GLatLng(this.box.latitude[1], this.box.longitude[0]);
-	this.corners.bottomright = new GLatLng(this.box.latitude[1], this.box.longitude[1]);
-	this.corners.bottomleft = new GLatLng(this.box.latitude[0], this.box.longitude[1]);
+	this.corners.topleft = new GLatLng(this.box.latitude[1], this.box.longitude[0]);
+	this.corners.topright = new GLatLng(this.box.latitude[1], this.box.longitude[1]);
+	this.corners.bottomright = new GLatLng(this.box.latitude[0], this.box.longitude[1]);
+	this.corners.bottomleft = new GLatLng(this.box.latitude[0], this.box.longitude[0]);
 	this.centerPoint = new GLatLng((this.box.latitude[0] + this.box.latitude[1])/2, (this.box.longitude[0] + this.box.longitude[1])/2);
 
 	this.options = {labelText : geohash};
@@ -145,19 +145,26 @@ function innerPlotGeohash(geohash, latitude, longitude) {
 	searchInfo = document.getElementById("searchInfo");
 	var xdistance = geoHashBox.neighbors.topleft.corners.topleft.distanceFrom(geoHashBox.neighbors.topright.corners.topright);
 	var ydistance = geoHashBox.neighbors.topleft.corners.topleft.distanceFrom(geoHashBox.neighbors.bottomleft.corners.bottomleft);
+	var xtile     = xdistance / 3;
+	var ytile     = ydistance / 3;
 	var searcharea = parseInt((xdistance/1000) * (ydistance/1000)*100)/100;
 	if (xdistance>2000) {
 		xdistance = parseInt(xdistance/10)/100;
 		ydistance = parseInt(ydistance/10)/100;
+		xtile     = parseInt(xtile/10)/100;
+		ytile     = parseInt(ytile/10)/100;
 		units = "km";
 	} else {
 		xdistance = parseInt(xdistance+0.5);
 		ydistance = parseInt(ydistance+0.5);
+		xtile = parseInt(xtile+0.5);
+		ytile = parseInt(ytile+0.5);
 		units = "m";
 	}
 	var lat = parseInt(latitude*100000)/100000;
 	var lng = parseInt(longitude*100000)/100000;
 	searchInfo.innerHTML = lat + ", " + lng + " [w:" + xdistance + units + ", h:" + ydistance + units + "] (" + searcharea + "km2)";
+	searchInfo.innerHTML = searchInfo.innerHTML + " tile size: w:" + xtile + units + ", h:" + ytile + units;
 
 	// var myIcon = new GIcon({image : './anchor.png', shadow : './shadow.png'});
 	var myMarker = new LabeledMarker(new GLatLng(latitude, longitude), this.options );
