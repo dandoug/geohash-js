@@ -125,6 +125,18 @@ function plotByHash () {
 	innerPlotGeohash(geohash, latlng["latitude"][2], latlng["longitude"][2]);
 }
 
+function mapTiles() {
+	var tiles = document.getElementById("tiles").value.split(',');
+	
+	var geoHashBox = new GeoHashBox(tiles[0].replace(/^\s+|\s+$/g,''));
+	geoHashBox.centerMap();
+	
+	// skip first one..
+	for (var i = 1; i < tiles.length; i++) {
+		new GeoHashBox(tiles[i].replace(/^\s+|\s+$/g,''));	
+	}
+
+}
 
 function innerPlotGeohash(geohash, latitude, longitude) {
 	var resolution = document.getElementById("hashResolution").value;
